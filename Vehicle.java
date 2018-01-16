@@ -1,83 +1,78 @@
 package sample;
 
-import javafx.scene.paint.Color;
+import javafx.scene.Node;
 
 public abstract class Vehicle implements ITransport {
 
-    protected int a=30;
-    protected int b=150;
-
-    protected int startPosX =a + (int) (Math.random() * b); // Генерация 1-го числа
-    protected int startPosY=a + (int) (Math.random() * b);  // Генерация 2-го числа
-
+    protected float startPosX;
+    protected float startPosY;
     protected int countPassengers;
 
     public int MaxCountPassengers;
 
+    public int MaxCapacityGenerator;
+
     public int MaxSpeed;
 
-    public Color ColorBody;
+    public javafx.scene.paint.Color ColorBody;
 
     public double Weight;
+    private int pas;
+    private int speed;
+    private int generator;
+    private double weight;
 
-    public abstract void drawLocomotive();
-
-
-    public abstract void moveLocomotive();
-
-
-    public int getPassenger()
-    {
-        int count = countPassengers;
-        countPassengers = 0;
-        return count;
+    public void setMaxCountPassengers(int pas) {
+        this.pas = pas;
     }
 
-    public void loadPassengers(int count)
-    {
-        if (countPassengers + count < getMaxCountPassengers())
-        {
+    public int getMaxCountPassengers() {
+        return pas;
+    }
+
+    public void setMaxSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getMaxSpeed() {
+        return speed;
+    }
+
+    public void setMaxCapacityGenerator(int generator) {
+        this.generator = generator;
+    }
+
+    public int getMaxCapacityGenerator() {
+        return generator;
+    }
+
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public abstract void moveCar();
+
+    public abstract Node drawLocomotive();
+
+    public void setPosition(int x, int y) {
+        startPosX = x;
+        startPosY = y;
+    }
+
+    public void loadPassenger(int count) {
+        if (countPassengers + count < pas) {
             countPassengers += count;
         }
     }
 
-
-    public void setPosition(int x, int y)
-    {
-        startPosX = x;
-        startPosY = y;
-
-    }
-
-    protected double getWeight() {
-        return Weight;
-    }
-
-    protected void setWeight(double weight) {
-        Weight = weight;
-    }
-
-    protected int getMaxCountPassengers() {
-        return MaxCountPassengers;
-    }
-
-    protected void setMaxCountPassengers(int maxCountPassengers) {
-        MaxCountPassengers = maxCountPassengers;
-    }
-
-    protected int getMaxSpeed() {
-        return MaxSpeed;
-    }
-
-    protected void setMaxSpeed(int maxSpeed) {
-        MaxSpeed = maxSpeed;
-    }
-
-    protected Color getColorBody() {
-        return ColorBody;
-    }
-
-    protected void setColorBody(Color colorBody) {
-        ColorBody = colorBody;
+    public int getPassenger() {
+        int count = countPassengers;
+        countPassengers = 0;
+        return count;
     }
 }
