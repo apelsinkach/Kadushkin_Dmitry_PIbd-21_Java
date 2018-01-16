@@ -6,7 +6,6 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-
 public class Locomotive extends Vehicle {
 
 

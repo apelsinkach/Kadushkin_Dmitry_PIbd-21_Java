@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.Node;
 
+
 public abstract class Vehicle implements ITransport {
 
     protected float startPosX;
@@ -45,7 +46,6 @@ public abstract class Vehicle implements ITransport {
     public int getMaxCapacityGenerator() {
         return generator;
     }
-
 
     public void setWeight(double weight) {
         this.weight = weight;

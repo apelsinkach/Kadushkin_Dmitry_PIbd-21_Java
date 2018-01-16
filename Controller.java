@@ -1,15 +1,20 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+//import java.awt.*;
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -21,7 +26,7 @@ public class Controller implements Initializable {
     int maxCountPass;
     double weight;
     int maxCapacityGenerator;
-
+    String[] arrData = new String[6];
     Depo depo = new Depo();
     private ITransport inter;
 
@@ -67,6 +72,8 @@ public class Controller implements Initializable {
     @FXML
     Pane dopDrawPanel;
 
+    @FXML
+    ListView listBoxLevels;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,8 +82,15 @@ public class Controller implements Initializable {
         maxSpeed = 200;
         maxCountPass = 50;
         weight = 1000;
+
+        for (int i = 0; i < 6; i++) {
+            arrData[i] = "Уровень" + i;
+        }
+        ObservableList<String> data = FXCollections.observableArrayList(arrData);
+        listBoxLevels.setItems(data);
         drawPanel.getChildren().addAll(depo.Draw());
     }
+
 
     public void btnActLoc(ActionEvent actionEvent) {
         generalColor.setOnAction((ActionEvent t) -> {
@@ -91,6 +105,14 @@ public class Controller implements Initializable {
             drawPanel.getChildren().addAll(locomotive.drawLocomotive());
         } catch (Exception e) {
 
+        }
+    }
+
+    private void Draw() {
+        drawPanel.getChildren().removeAll();
+        if (listBoxLevels.getSelectionModel().getSelectedIndex() > -1) {//если выбран один из пуктов в listBox (при старте программы ни один пункт не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу listBox)
+
+            drawPanel.getChildren().setAll(depo.Draw());
         }
     }
 
@@ -123,7 +145,7 @@ public class Controller implements Initializable {
         CartLocomotive train = new CartLocomotive(100, 4, 240, 1000, color, true, true, dopColor);
         inter = train;
         int place = depo.PutCarInParking(train);
-        drawPanel.getChildren().setAll(depo.Draw());
+        Draw();
         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
         alert1.setContentText("Ваше место: " + place);
     }
@@ -132,18 +154,30 @@ public class Controller implements Initializable {
         Locomotive locomotive = new Locomotive(100, 4, 240, 1000, color);
         inter = locomotive;
         int place = depo.PutCarInParking(locomotive);
-        drawPanel.getChildren().setAll(depo.Draw());
+        Draw();
         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
         alert1.setContentText("Ваше место: " + place);
     }
 
     public void takeBtnActionA(ActionEvent actionEvent) {
-        drawPanel.getChildren().removeAll();
         if (countTrain.getText() != "") {
             ITransport train = depo.GetCarInParking(Integer.parseInt(countTrain.getText()));
             train.setPosition(5, 50);
-            drawPanel.getChildren().setAll(depo.Draw());
+            Draw();
             dopDrawPanel.getChildren().addAll(train.drawLocomotive());
         }
+    }
+
+    public void lvlDownBtnAction(ActionEvent actionEvent) {
+        depo.LevelDown();
+        listBoxLevels.getSelectionModel().select(depo.getCurrentLevel());
+        Draw();
+    }
+
+    public void lvlUpBtnAction(ActionEvent actionEvent) {
+
+        depo.LevelUp();
+        listBoxLevels.getSelectionModel().select(depo.getCurrentLevel());
+        Draw();
     }
 }
