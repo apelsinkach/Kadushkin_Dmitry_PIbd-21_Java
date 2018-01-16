@@ -2,13 +2,12 @@ package sample;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CartLocomotive extends Locomotive {
     private boolean pipe;
     private boolean coal;
-
     private Color dopColor;
 
     public CartLocomotive(int maxSpeed, int maxCountPassenger, int maxCapacityGenerator, double weight, javafx.scene.paint.Color color, boolean pipe, boolean coal, Color dopColor) {
