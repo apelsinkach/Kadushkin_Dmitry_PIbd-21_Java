@@ -5,18 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Lab 2 Java");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("Lab3");
+        primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

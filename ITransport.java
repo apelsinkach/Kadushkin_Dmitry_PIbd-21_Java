@@ -1,14 +1,15 @@
 package sample;
 
+import javafx.scene.Node;
+
 public interface ITransport {
+    void moveCar();
 
-    void moveLocomotive();
+    Node drawLocomotive();
 
-    void drawLocomotive();
+    void setPosition(int x, int y);
 
-    void setPosition(int x , int y);
-
-    void loadPassengers(int count);
+    void loadPassenger(int count);
 
     int getPassenger();
 
